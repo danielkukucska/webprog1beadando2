@@ -1,6 +1,6 @@
-import HttpException from "Exceptions/HttpException";
-import { CreateUserDTO, UpdateUserDTO, UserDTO } from "Types/Usert";
-import toast from "Utils/Toast";
+import HttpException from "@/Exceptions/HttpException";
+import { CreateUserDTO, UpdateUserDTO, UserDTO } from "@/Types/User";
+import toast from "@/Utils/Toast";
 import Service from "./Service";
 
 class UserServices extends Service<UserDTO, CreateUserDTO, UserDTO> {

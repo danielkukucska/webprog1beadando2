@@ -14,15 +14,13 @@
         "noUnusedParameters": true,
         "noImplicitReturns": true,
         "skipLibCheck": true,
-        "baseUrl": "src",
+        "baseUrl": "./src",
         "paths": {
-            "@app/*": ["app/*"],
-            "@config/*": ["app/_config/*"],
-            "@environment/*": ["environments/*"],
-            "@shared/*": ["app/_shared/*"],
-            "@helpers/*": ["helpers/*"]
-        },
+                "@*": ["./*"]
+            }
+        // "paths": {
+        //     "@/*": ["./src/*"]
+        // }
     },
-    "include": ["src"],
-    
+    "include": ["src"]
 }
