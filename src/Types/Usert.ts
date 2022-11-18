@@ -8,4 +8,4 @@ export type UserDTO ={
 
 export type CreateUserDTO = Omit<UserDTO, "id" | "avatar">;
 
-export type UpdateUserDTO = Omit<UserDTO, "id">;
+export type UpdateUserDTO = Omit<UserDTO, "avatar">;

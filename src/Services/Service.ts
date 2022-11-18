@@ -3,9 +3,9 @@ export default abstract class Service<T, TCreate, TUpdate> {
     constructor(baseUrl: string) {
         this.baseUrl = baseUrl;
     }
-    abstract GetAll(page?: string): Promise<T[]>;
-    abstract GetById(id: number): Promise<T>;
-    abstract Create(item: TCreate): Promise<T>;
-    abstract Update(item: TUpdate): Promise<T>;
-    abstract Delete(id: number): Promise<void>;
+    abstract GetAll(page?: number): Promise<T[] | null>;
+    abstract GetById(id: number): Promise<T | null>;
+    abstract Create(item: TCreate): Promise<T | null>;
+    abstract Update(item: TUpdate): Promise<T | null>;
+    abstract Delete(id: number): Promise<true | null>;
 }
