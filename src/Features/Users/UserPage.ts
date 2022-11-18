@@ -1,5 +1,6 @@
 import UserServices from "@/Services/UserServices";
 import { UserDTO } from "@/Types/User";
+import ToggleLoadingModal from "@Utils/Loading";
 import UserRow from "./Components/UserRow";
 
 export function setupCounter(element: HTMLButtonElement) {
@@ -25,7 +26,10 @@ export class UsersPage {
             return console.error("Users table not found.");
         }
 
+        ToggleLoadingModal("Loading users...", "loadingUsersModal");
+
         const newUsers = await UserServices.GetAll(page);
+
         if (!newUsers) return;
 
         //TODO Update DOM
