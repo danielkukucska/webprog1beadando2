@@ -1,7 +1,7 @@
 import HttpException from "@App/Exceptions/HttpException";
 import { CreateUserDTO, UpdateUserDTO, UserDTO } from "@App/Types/User";
 import Service from "../Abstractions/Service";
-import toast from "@App/Utils/toast";
+import { toast } from "@App/main";
 
 class UserServices extends Service<UserDTO, CreateUserDTO, UserDTO> {
     constructor(baseUrl: string) {
@@ -12,6 +12,7 @@ class UserServices extends Service<UserDTO, CreateUserDTO, UserDTO> {
             const resp = await fetch(this.baseUrl + `?page=${page}`);
             if (!resp.ok) throw new HttpException(resp.status, resp.statusText);
             const { data } = await resp.json();
+            toast.Add("Users loaded.");
             return data;
         } catch (e) {
             const error = e as HttpException;

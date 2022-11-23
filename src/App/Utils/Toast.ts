@@ -1,45 +1,27 @@
-//TODO: extends Component
-//add singleton
-
 import Component from "@App/Abstractions/Component";
 
-//handle multiple notifications
-const toast = (message: string): void => {
-    let container: HTMLElement | null = document.getElementById("toastContainer");
-    if (!container) {
-        container = document.createElement("div");
-        container.style.position = "fixed";
-        container.style.right = "0";
-        container.style.top = "0";
-        container.style.border = "1px solid red";
-
-        document.body.appendChild(container);
-    }
-
-    const messageBox = document.createElement("div");
-    messageBox.innerHTML = message;
-
-    container.appendChild(messageBox);
-};
-
 class Toast extends Component {
-    //TODO: handle single disposal, timeout
-    private toasts: HTMLElement[];
 
     constructor(container?: HTMLElement) {
-        super(container);
-        this.toasts = [];
+        super("div",container);
+        this.element.className = "position-fixed bottom-0 end-0 p-3"
     }
 
     Add(message: string): string {
-        const div = document.createElement("div");
-        div.innerHTML = message;
-        const id = Date.now().toString();
-        div.id = id;
-        this.toasts.push(div);
+        const id = "toast_" + Date.now().toString()
 
-        this.element.appendChild(div);
-
+        this.element.innerHTML += `
+                <div class="toast show align-items-center border-0" role="alert" id="${id}">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                        ${message}
+                        </div>
+                        <button type="button" class="btn-close me-2 m-auto" aria-label="Close"></button>
+                    </div>
+                </div>
+                `
+        const el = this.element.querySelector(`#${id}`);
+        el && el.addEventListener("click",()=> this.Remove(id));
         setTimeout(() => {
             this.Remove(id);
         }, 5000);
@@ -53,9 +35,8 @@ class Toast extends Component {
     }
 
     BuildComponent() {
-        const div = document.createElement("div");
-        return div;
+        this.element = document.createElement("div");
     }
 }
 
-export default new Toast();
+export default Toast;

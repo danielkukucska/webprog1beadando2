@@ -2,7 +2,9 @@ import { UsersPage } from "@App/Features/Users/UserPage";
 import UserServices from "./Services/UserServices";
 import Toast from "./Utils/Toast";
 
-Toast.Render();
+export const toast = new Toast();
+
+toast.Render();
 
 const container = document.querySelector<HTMLTableElement>("#usersTableBody");
 if (container) {

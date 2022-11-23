@@ -3,6 +3,7 @@ import { UserDTO } from "@App/Types/User";
 import LoadingModal from "@App/Utils/Loading";
 import UserRow from "./Components/UserRow";
 
+
 export function setupCounter(element: HTMLButtonElement) {
     let counter = 0;
     const setCounter = (count: number) => {
@@ -41,6 +42,7 @@ export class UsersPage {
             const userRow = new UserRow(user,this.tbody);
             userRow.Render();
         });
+
         console.log(newUsers);
     };
 
