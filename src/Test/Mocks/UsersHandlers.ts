@@ -73,3 +73,48 @@ export const usersHandlers: RestHandler[] = [
         return res(ctx.status(204));
     }),
 ];
+
+
+export const usersHandlersNetworkError: RestHandler[] = [
+    rest.get("https://reqres.in/api/mocknetworerror/*", (_req, res, _ctx) => { 
+        return res.networkError("Mock network error")
+    }),
+    rest.post("https://reqres.in/api/mocknetworerror/*", (_req, res, _ctx) => { 
+        return res.networkError("Mock network error")
+    }),
+    rest.put("https://reqres.in/api/mocknetworerror/*", (_req, res, _ctx) => { 
+        return res.networkError("Mock network error")
+    }),
+    rest.delete("https://reqres.in/api/mocknetworerror/*", (_req, res, _ctx) => { 
+        return res.networkError("Mock network error")
+    })
+];
+
+export const usersHandlersRejectError: RestHandler[] = [
+    rest.get("https://reqres.in/api/mockrejecterror/users", (_req, res, ctx) => {
+       
+        return res(
+            ctx.status(500),
+        );
+    }),
+    rest.get("https://reqres.in/api/mockrejecterror/users/*", (_req, res, ctx) => {
+        return res(
+            ctx.status(500),
+        );
+    }),
+    rest.post("https://reqres.in/api/mockrejecterror/users",async (_req, res, ctx) => {
+        return res(
+            ctx.status(500),
+        );
+    }),
+    rest.put(`https://reqres.in/api/mockrejecterror/users/*`, async (_req, res, ctx) => {
+        return res(
+            ctx.status(500),
+        );
+    }),
+    rest.delete(`https://reqres.in/api/mockrejecterror/users/*`, (_req, res, ctx) => {
+        return res(
+            ctx.status(500),
+        );
+    }),
+];
