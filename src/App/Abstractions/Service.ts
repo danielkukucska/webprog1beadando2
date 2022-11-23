@@ -1,4 +1,4 @@
-export default abstract class Service<T, TCreate, TUpdate> {
+abstract class Service<T, TCreate, TUpdate> {
     baseUrl: string;
     constructor(baseUrl: string) {
         this.baseUrl = baseUrl;
@@ -9,3 +9,5 @@ export default abstract class Service<T, TCreate, TUpdate> {
     abstract Update(item: TUpdate): Promise<T | null>;
     abstract Delete(id: number): Promise<true | null>;
 }
+
+export default Service;

@@ -1,7 +1,7 @@
-import HttpException from "@/Exceptions/HttpException";
-import { CreateUserDTO, UpdateUserDTO, UserDTO } from "@/Types/User";
-import toast from "@/Utils/Toast";
-import Service from "./Service";
+import HttpException from "@App/Exceptions/HttpException";
+import { CreateUserDTO, UpdateUserDTO, UserDTO } from "@App/Types/User";
+import Service from "../Abstractions/Service";
+import toast from "@App/Utils/toast";
 
 class UserServices extends Service<UserDTO, CreateUserDTO, UserDTO> {
     constructor(baseUrl: string) {
@@ -10,41 +10,46 @@ class UserServices extends Service<UserDTO, CreateUserDTO, UserDTO> {
     async GetAll(page = 1): Promise<UserDTO[] | null> {
         try {
             const resp = await fetch(this.baseUrl + `?page=${page}`);
+            if (!resp.ok) throw new HttpException(resp.status, resp.statusText);
             const { data } = await resp.json();
             return data;
         } catch (e) {
             const error = e as HttpException;
             switch (true) {
                 case error.status >= 500:
-                    toast("Unexpected server error.");
+                    toast.Add("Unexpected server error.");
                     break;
                 default:
-                    toast("Unexpected error.");
+                    toast.Add("Unexpected error.");
                     break;
             }
             return null;
         }
     }
+
     async GetById(id: number): Promise<UserDTO | null> {
         try {
             const resp = await fetch(this.baseUrl + "/" + id);
+            if (!resp.ok) throw new HttpException(resp.status, resp.statusText);
             const { data } = await resp.json();
             return data;
         } catch (e) {
             const error = e as HttpException;
             switch (true) {
                 case error.status === 404:
-                    toast(`User not found with id: ${id}.`);
+                    toast.Add(`User not found with id: ${id}.`);
+                    break;
                 case error.status >= 500:
-                    toast("Unexpected server error.");
+                    toast.Add("Unexpected server error.");
                     break;
                 default:
-                    toast("Unexpected error.");
+                    toast.Add("Unexpected error.");
                     break;
             }
             return null;
         }
     }
+
     async Create(item: CreateUserDTO): Promise<UserDTO | null> {
         try {
             const resp = await fetch(this.baseUrl, {
@@ -54,24 +59,26 @@ class UserServices extends Service<UserDTO, CreateUserDTO, UserDTO> {
                 },
                 body: JSON.stringify(item),
             });
+            if (!resp.ok) throw new HttpException(resp.status, resp.statusText);
             const data = await resp.json();
             return data;
         } catch (e) {
             const error = e as HttpException;
             switch (true) {
                 case error.status === 422:
-                    toast("Validation error.");
+                    toast.Add("Validation error.");
                     break;
                 case error.status >= 500:
-                    toast("Unexpected error.");
+                    toast.Add("Unexpected error.");
                     break;
                 default:
-                    toast("Unexpected server error.");
+                    toast.Add("Unexpected server error.");
                     break;
             }
             return null;
         }
     }
+
     async Update(item: UpdateUserDTO): Promise<UserDTO | null> {
         try {
             const resp = await fetch(this.baseUrl + "/" + item.id, {
@@ -81,40 +88,44 @@ class UserServices extends Service<UserDTO, CreateUserDTO, UserDTO> {
                 },
                 body: JSON.stringify(item),
             });
+            if (!resp.ok) throw new HttpException(resp.status, resp.statusText);
             const data = await resp.json();
             return data;
         } catch (e) {
             const error = e as HttpException;
             switch (true) {
                 case error.status === 422:
-                    toast("Validation error.");
+                    toast.Add("Validation error.");
+                    break;
                 case error.status >= 500:
-                    toast("Unexpected server error.");
+                    toast.Add("Unexpected server error.");
                     break;
                 default:
-                    toast("Unexpected error.");
+                    toast.Add("Unexpected error.");
                     break;
             }
             return null;
         }
     }
+
     async Delete(id: number): Promise<true | null> {
         try {
-            await fetch(this.baseUrl + "/" + id, {
+            const resp = await fetch(this.baseUrl + "/" + id, {
                 method: "DELETE",
             });
-
+            if (!resp.ok) throw new HttpException(resp.status, resp.statusText);
             return true;
         } catch (e) {
             const error = e as HttpException;
             switch (true) {
                 case error.status === 404:
-                    toast(`User not found with id: ${id}.`);
+                    toast.Add(`User not found with id: ${id}.`);
+                    break;
                 case error.status >= 500:
-                    toast("Unexpected server error.");
+                    toast.Add("Unexpected server error.");
                     break;
                 default:
-                    toast("Unexpected error.");
+                    toast.Add("Unexpected error.");
                     break;
             }
             return null;
@@ -122,4 +133,4 @@ class UserServices extends Service<UserDTO, CreateUserDTO, UserDTO> {
     }
 }
 
-export default new UserServices("https://reqres.in/api/users");
+export default UserServices;

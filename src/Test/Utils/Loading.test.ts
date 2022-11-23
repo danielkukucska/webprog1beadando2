@@ -1,6 +1,6 @@
 const ToggleLoadingModal = (message: string, id: string): void => {
     let container = document.getElementById("loadingUsersModal");
-    if(container){
+    if (container) {
         container.remove();
         return;
     }
@@ -18,14 +18,14 @@ const ToggleLoadingModal = (message: string, id: string): void => {
 
     const backDrop = document.createElement("div");
     backDrop.style.background = "rgba(255,255,255,0.3)";
-   
+
     backDrop.style.zIndex = "1000";
     container.appendChild(backDrop);
-    
+
     const messagePanel = document.createElement("div");
     messagePanel.innerText = message;
     messagePanel.style.zIndex = "1001";
     container.appendChild(messagePanel);
 };
 
-export  default ToggleLoadingModal;
+export default ToggleLoadingModal;
