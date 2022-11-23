@@ -76,16 +76,16 @@ export const usersHandlers: RestHandler[] = [
 
 
 export const usersHandlersNetworkError: RestHandler[] = [
-    rest.get("https://reqres.in/api/mocknetworerror/*", (_req, res, _ctx) => { 
+    rest.get("https://reqres.in/api/mocknetworkerror/*", (_req, res, _ctx) => { 
         return res.networkError("Mock network error")
     }),
-    rest.post("https://reqres.in/api/mocknetworerror/*", (_req, res, _ctx) => { 
+    rest.post("https://reqres.in/api/mocknetworkerror/*", (_req, res, _ctx) => { 
         return res.networkError("Mock network error")
     }),
-    rest.put("https://reqres.in/api/mocknetworerror/*", (_req, res, _ctx) => { 
+    rest.put("https://reqres.in/api/mocknetworkerror/*", (_req, res, _ctx) => { 
         return res.networkError("Mock network error")
     }),
-    rest.delete("https://reqres.in/api/mocknetworerror/*", (_req, res, _ctx) => { 
+    rest.delete("https://reqres.in/api/mocknetworkerror/*", (_req, res, _ctx) => { 
         return res.networkError("Mock network error")
     })
 ];

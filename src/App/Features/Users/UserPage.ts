@@ -29,7 +29,6 @@ export class UsersPage {
             return console.error("Users table not found.");
         }
 
-  
         this.loadingModal.Render();
 
         const newUsers = await this.userServices.GetAll(page);
@@ -38,11 +37,9 @@ export class UsersPage {
 
         if (!newUsers) return;
 
-        //TODO Update DOM
         newUsers.forEach((user) => {
             const userRow = new UserRow(user,this.tbody);
             userRow.Render();
-            // this.tbody.appendChild(UserRow(user));
         });
         console.log(newUsers);
     };

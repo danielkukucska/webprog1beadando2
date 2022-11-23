@@ -9,15 +9,14 @@ class UserRow extends Component {
     private user: UserDTO;
 
     constructor(user: UserDTO, container?: HTMLElement) {
-        super(container);
+        super("tr",container);
         this.user = user;
     }
 
     BuildComponent() {
-        const tr = document.createElement("tr");
-        tr.id = this.user.id.toString();
+        this.element.id = this.user.id.toString();
 
-        tr.innerHTML = `
+        this.element.innerHTML = `
         <td>
             <img src="${this.user.avatar}" alt="Profile picture for ${this.user.first_name} ${this.user.last_name}"/>
         </td>
@@ -32,10 +31,6 @@ class UserRow extends Component {
             <button class="btn btn-danger" onclick="">Delete</button>
         </td>
         `;
-
-        // this.element = tr;
-
-        return tr;
     }
 
 }
