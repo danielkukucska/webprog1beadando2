@@ -39,7 +39,7 @@ export class UsersPage {
         if (!newUsers) return;
 
         newUsers.forEach((user) => {
-            const userRow = new UserRow(user,this.tbody);
+            const userRow = new UserRow(user,this.userServices,this.tbody);
             userRow.Render();
         });
 

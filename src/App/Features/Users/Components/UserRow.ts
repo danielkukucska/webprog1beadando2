@@ -1,3 +1,4 @@
+import UserServices from '@App/Services/UserServices';
 import Component from "@App/Abstractions/Component";
 import { UserDTO } from "@App/Types/User";
 
@@ -7,10 +8,12 @@ export interface IUserRowProps {
 
 class UserRow extends Component {
     private user: UserDTO;
+    private userServices: UserServices;
 
-    constructor(user: UserDTO, container?: HTMLElement) {
-        super("tr",container);
+    constructor(user: UserDTO, userServices: UserServices, container?: HTMLElement) {
+        super("tr", container);
         this.user = user;
+        this.userServices = userServices
     }
 
     BuildComponent() {
@@ -27,10 +30,15 @@ class UserRow extends Component {
             ${this.user.email}
         </td>
         <td>
-            <button class="btn btn-primary" onclick="">Update</button>
-            <button class="btn btn-danger" onclick="">Delete</button>
+            <button class="btn btn-primary" id="update_${this.user.id}">Update</button>
+            <button class="btn btn-danger" id="delete_${this.user.id}">Delete</button>
         </td>
         `;
+
+        const updateBtn = this.element.querySelector(`#update_${this.user.id}`) 
+        updateBtn && updateBtn.addEventListener("click", () => console.log("TODO: update and create modal"))
+        const deleteBtn = this.element.querySelector(`#delete_${this.user.id}`) 
+        deleteBtn && deleteBtn.addEventListener("click", () => this.userServices.Delete(this.user.id))
     }
 
 }
